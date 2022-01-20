@@ -561,6 +561,11 @@ export default {
     transition: ease-in 0.4s all;
     border: 1px solid transparent;
 
+    &:hover {
+      transition: ease-in 0.4s all;
+      border: 1px solid #bb86fc;
+    }
+
     &.card-active {
       transition: ease-in 0.4s all;
       border: 1px solid #bb86fc;
