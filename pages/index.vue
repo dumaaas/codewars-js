@@ -2,7 +2,7 @@
   <div class="main">
     <div class="container">
       <div class="cards">
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task1 }">
           <h1 class="title">Task 1</h1>
           <p class="description">
             Write a function that takes in a string of one or more words, and
@@ -12,11 +12,15 @@
             when more than one word is present.
           </p>
           <div class="card-flex">
-            <input v-model="wordSpin" />
+            <input
+              v-model="wordSpin"
+              @focus="task1 = true"
+              @blur="task1 = false"
+            />
             <p v-if="wordSpin">{{ spinWords(wordSpin) }}</p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task2 }">
           <h1 class="title">Task 2</h1>
           <p class="description">
             Trolls are attacking your comment section! A common way to deal with
@@ -28,11 +32,15 @@
             considered a vowel.
           </p>
           <div class="card-flex">
-            <input v-model="wordDisemvowel" />
+            <input
+              v-model="wordDisemvowel"
+              @focus="task2 = true"
+              @blur="task2 = false"
+            />
             <p v-if="wordDisemvowel">{{ disemvowel(wordDisemvowel) }}</p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task3 }">
           <h1 class="title">Task 3</h1>
           <p class="description">
             Count the number of Duplicates Write a function that will return the
@@ -42,13 +50,17 @@
             lowercase) and numeric digits.
           </p>
           <div class="card-flex">
-            <input v-model="wordDuplicateCount" />
+            <input
+              v-model="wordDuplicateCount"
+              @focus="task3 = true"
+              @blur="task3 = false"
+            />
             <p v-if="wordDuplicateCount">
               {{ duplicateCount(wordDuplicateCount) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task4 }">
           <h1 class="title">Task 4</h1>
           <p class="description">
             Given an integral number, determine if it's a square number: In
@@ -58,13 +70,17 @@
             so don't worry about that in dynamic typed languages.
           </p>
           <div class="card-flex">
-            <input v-model="wordIsSquare" />
+            <input
+              v-model="wordIsSquare"
+              @focus="task4 = true"
+              @blur="task4 = false"
+            />
             <p v-if="wordIsSquare">
               {{ isSquare(wordIsSquare) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task5 }">
           <h1 class="title">Task 5</h1>
           <p class="description">
             Implement a function that accepts 3 integer values a, b, c. The
@@ -73,9 +89,21 @@
             all triangles must have surface greater than 0 to be accepted).
           </p>
           <div class="card-flex card-flex__col">
-            <input v-model="wordIsTriangleA" />
-            <input v-model="wordIsTriangleB" />
-            <input v-model="wordIsTriangleC" />
+            <input
+              v-model="wordIsTriangleA"
+              @focus="task5 = true"
+              @blur="task5 = false"
+            />
+            <input
+              v-model="wordIsTriangleB"
+              @focus="task5 = true"
+              @blur="task5 = false"
+            />
+            <input
+              v-model="wordIsTriangleC"
+              @focus="task5 = true"
+              @blur="task5 = false"
+            />
 
             <p v-if="wordIsTriangleA && wordIsTriangleB && wordIsTriangleC">
               {{
@@ -84,20 +112,24 @@
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task6 }">
           <h1 class="title">Task 6</h1>
           <p class="description">
             Move the first letter of each word to the end of it, then add "ay"
             to the end of the word. Leave punctuation marks untouched.
           </p>
           <div class="card-flex">
-            <input v-model="wordPigIt" />
+            <input
+              v-model="wordPigIt"
+              @focus="task6 = true"
+              @blur="task6 = false"
+            />
             <p v-if="wordPigIt">
               {{ pigIt(wordPigIt) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task7 }">
           <h1 class="title">Task 7</h1>
           <p class="description">
             Digital root is the recursive sum of all the digits in a number.
@@ -106,13 +138,17 @@
             number is produced. The input will be a non-negative integer.
           </p>
           <div class="card-flex">
-            <input v-model="wordDigitalRoot" />
+            <input
+              v-model="wordDigitalRoot"
+              @focus="task7 = true"
+              @blur="task7 = false"
+            />
             <p v-if="wordDigitalRoot">
               {{ digitalRoot(wordDigitalRoot) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task8 }">
           <h1 class="title">Task 8</h1>
           <p class="description">
             Implement the function unique_in_order which takes as argument a
@@ -121,13 +157,17 @@
             elements.
           </p>
           <div class="card-flex">
-            <input v-model="wordUniqueInOrder" />
+            <input
+              v-model="wordUniqueInOrder"
+              @focus="task8 = true"
+              @blur="task8 = false"
+            />
             <p v-if="wordUniqueInOrder">
               {{ uniqueInOrder(wordUniqueInOrder) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task9 }">
           <h1 class="title">Task 9</h1>
           <p class="description">
             Given a list lst and a number N, create a new list that contains
@@ -138,13 +178,17 @@
           </p>
           <div class="card-flex card-flex__col">
             <p>{{ arrayDeleteNth }}</p>
-            <input v-model="wordDeleteNth" />
+            <input
+              v-model="wordDeleteNth"
+              @focus="task9 = true"
+              @blur="task9 = false"
+            />
             <p v-if="wordDeleteNth">
               {{ deleteNth(wordDeleteNth) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task10 }">
           <h1 class="title">Task 10</h1>
           <p class="description">
             Some numbers have funny properties. For example: 695 --> 6² + 9³ +
@@ -156,15 +200,23 @@
             be given as strictly positive integers.
           </p>
           <div class="card-flex card-flex__col">
-            <input v-model="wordDigPowA" />
-            <input v-model="wordDigPowB" />
+            <input
+              v-model="wordDigPowA"
+              @focus="task10 = true"
+              @blur="task10 = false"
+            />
+            <input
+              v-model="wordDigPowB"
+              @focus="task10 = true"
+              @blur="task10 = false"
+            />
 
             <p v-if="wordDigPowA && wordDigPowB">
               {{ digPow(wordDigPowA, wordDigPowB) }}
             </p>
           </div>
         </div>
-        <div class="card">
+        <div class="card" :class="{ 'card-active': task11 }">
           <h1 class="title">Task 11</h1>
           <p class="description">
             Write a function, persistence, that takes in a positive parameter
@@ -173,10 +225,36 @@
             single digit.
           </p>
           <div class="card-flex">
-            <input v-model="wordPersistance" />
+            <input
+              v-model="wordPersistance"
+              @focus="task11 = true"
+              @blur="task11 = false"
+            />
 
             <p v-if="wordPersistance">
               {{ persistence(wordPersistance) }}
+            </p>
+          </div>
+        </div>
+        <div class="card" :class="{ 'card-active': task12 }">
+          <h1 class="title">Task 12</h1>
+          <p class="description">
+            You are given an array(list) strarr of strings and an integer k.
+            Your task is to return the first longest string consisting of k
+            consecutive strings taken in the array.n being the length of the
+            string array, if n = 0 or k > n or k less or equal to 0 return "".
+            Note -> consecutive strings : follow one after another without an
+            interruption
+          </p>
+          <div class="card-flex card-flex__col">
+            <p>{{ arrayLongestConsec }}</p>
+            <input
+              v-model="wordLongestConsec"
+              @focus="task12 = true"
+              @blur="task12 = false"
+            />
+            <p v-if="wordLongestConsec">
+              {{ longestConsec(wordLongestConsec) }}
             </p>
           </div>
         </div>
@@ -190,6 +268,18 @@ export default {
   name: 'IndexPage',
   data() {
     return {
+      task1: false,
+      task2: false,
+      task3: false,
+      task4: false,
+      task5: false,
+      task6: false,
+      task7: false,
+      task8: false,
+      task9: false,
+      task10: false,
+      task11: false,
+      task12: false,
       wordSpin: '',
       wordDisemvowel: '',
       wordDuplicateCount: '',
@@ -205,6 +295,8 @@ export default {
       wordDigPowA: '',
       wordDigPowB: '',
       wordPersistance: '',
+      wordLongestConsec: '',
+      arrayLongestConsec: ['it', 'wkppv', 'ixoyx', '3452', 'zzzzzzzzzzzz'],
     }
   },
   methods: {
@@ -412,6 +504,36 @@ export default {
       // return number of multiplicative persistence
       return times
     },
+
+    // Task 12
+
+    // You are given an array(list) strarr of strings and an integer k. Your task is to return
+    // the first ongest string consisting of k consecutive strings taken in the array.
+    // n being the length of the string array, if n = 0 or k > n or k <= 0 return "" (return Nothing in Elm).
+    // Note
+    // consecutive strings : follow one after another without an interruption
+
+    longestConsec(k) {
+      k = parseInt(k)
+
+      if (
+        this.arrayLongestConsec.length === 0 ||
+        k > this.arrayLongestConsec.length ||
+        k <= 0
+      )
+        return 'Try another number.'
+      var result = ''
+      for (let i = 0; i <= this.arrayLongestConsec.length - k; i++) {
+        var str = ''
+        for (let j = i; j < i + k; j++) {
+          str += this.arrayLongestConsec[j]
+        }
+        if (result.length < str.length) {
+          result = str
+        }
+      }
+      return result
+    },
   },
 }
 </script>
@@ -436,7 +558,13 @@ export default {
     border-radius: 10px;
     padding: 24px;
     max-width: 500px;
+    transition: ease-in 0.4s all;
+    border: 1px solid transparent;
 
+    &.card-active {
+      transition: ease-in 0.4s all;
+      border: 1px solid #bb86fc;
+    }
     &-flex {
       display: flex;
       align-items: center;
@@ -453,10 +581,11 @@ export default {
       padding-bottom: 24px;
       line-height: 22px;
       color: #b2bac2;
+      transition: ease-in 0.4s all;
     }
 
     input {
-      border: 1px solid #b2bac2;
+      border: 1px solid #bb86fc;
       background: #373737;
       padding: 8px;
       height: 24px;
