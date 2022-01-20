@@ -144,6 +144,42 @@
             </p>
           </div>
         </div>
+        <div class="card">
+          <h1 class="title">Task 10</h1>
+          <p class="description">
+            Some numbers have funny properties. For example: 695 --> 6² + 9³ +
+            5⁴= 1390 = 695 * 2 Given a positive integer n written as abcd... (a,
+            b, c, d... being digits) and a positive integer p we want to find a
+            positive integer k, if it exists, such as the sum of the digits of n
+            taken to the successive powers of p is equal to k * n. If it is the
+            case we will return k, if not return -1. Note: n and p will always
+            be given as strictly positive integers.
+          </p>
+          <div class="card-flex card-flex__col">
+            <input v-model="wordDigPowA" />
+            <input v-model="wordDigPowB" />
+
+            <p v-if="wordDigPowA && wordDigPowB">
+              {{ digPow(wordDigPowA, wordDigPowB) }}
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <h1 class="title">Task 11</h1>
+          <p class="description">
+            Write a function, persistence, that takes in a positive parameter
+            num and returns its multiplicative persistence, which is the number
+            of times you must multiply the digits in num until you reach a
+            single digit.
+          </p>
+          <div class="card-flex">
+            <input v-model="wordPersistance" />
+
+            <p v-if="wordPersistance">
+              {{ persistence(wordPersistance) }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -166,6 +202,9 @@ export default {
       wordUniqueInOrder: '',
       wordDeleteNth: '',
       arrayDeleteNth: [20, 37, 20, 21, 21, 21, 2, 2, 1, 5, 4, 21],
+      wordDigPowA: '',
+      wordDigPowB: '',
+      wordPersistance: '',
     }
   },
   methods: {
@@ -321,6 +360,57 @@ export default {
       let totals = {}
       var arr = [...this.arrayDeleteNth]
       return arr.filter((o) => (totals[o] = ++totals[o] || 0) < n)
+    },
+
+    // Task 10
+
+    // Some numbers have funny properties. For example:
+    // 695 --> 6² + 9³ + 5⁴= 1390 = 695 * 2
+    // Given a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p
+    // we want to find a positive integer k, if it exists, such as the sum of the digits of n taken to the successive powers of p is equal to k * n.
+    // If it is the case we will return k, if not return -1.
+    // Note: n and p will always be given as strictly positive integers.
+
+    digPow(n, p) {
+      n = n.split('')
+      var sum = 0
+      var pow = p
+      // counting sum of every digit of number on incrementing pows
+      n.forEach((item) => {
+        sum = sum + Math.pow(item, pow)
+        pow++
+      })
+      n = n.join('')
+      // if sum equal original number is equal is integer
+      // we return that number
+      // else return -1
+      return sum % n === 0 ? sum / n : -1
+    },
+
+    // Task 11
+
+    // Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence,
+    // which is the number of times you must multiply the digits in num until you reach a single digit.
+    // For example (Input --> Output):
+    // 39 --> 3 (because 3*9 = 27, 2*7 = 14, 1*4 = 4 and 4 has only one digit)
+
+    persistence(num) {
+      // number of multiplicative persistence
+      var times = 0
+
+      // repeat this while num have 2+ digits
+      while (num.length > 1) {
+        // increment number of multiplicative persistence
+        times++
+        // split number into an array
+        // go through every element of array and multiple previousValue with newValue
+        num = num
+          .split('')
+          .reduce((a, b) => a * b)
+          .toString()
+      }
+      // return number of multiplicative persistence
+      return times
     },
   },
 }
