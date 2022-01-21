@@ -269,7 +269,7 @@
             in the array/list) proceeds to a till as soon as it becomes free.
           </p>
           <div class="card-flex card-flex__col">
-            <p>{{arrayQueueTime}}</p>
+            <p>{{ arrayQueueTime }}</p>
             <input
               v-model="wordQueueTime"
               @focus="task13 = true"
@@ -277,6 +277,42 @@
             />
             <p v-if="wordQueueTime">
               {{ queueTime(wordQueueTime) }}
+            </p>
+          </div>
+        </div>
+        <div class="card" :class="{ 'card-active': task14 }">
+          <h1 class="title">Task 14</h1>
+          <p class="description">
+            Write a program that will calculate the number of trailing zeros in
+            a factorial of a given number. N! = 1 * 2 * 3 * ... * N. Be careful
+            1000! has 2568 digits...
+          </p>
+          <div class="card-flex">
+            <input
+              v-model="wordZeros"
+              @focus="task14 = true"
+              @blur="task14 = false"
+            />
+            <p v-if="wordZeros">
+              {{ zeros(wordZeros) }}
+            </p>
+          </div>
+        </div>
+        <div class="card" :class="{ 'card-active': task15 }">
+          <h1 class="title">Task 15</h1>
+          <p class="description">
+            You are given an array(list) strarr of strings and an integer k.
+            Your task is to return the first longest string consisting of k
+            consecutive strings taken in the array.n being the length of the
+            string array, if n = 0 or k > n or k less or equal to 0 return "".
+            Note -> consecutive strings : follow one after another without an
+            interruption
+          </p>
+          <div class="card-flex card-flex__col">
+            <p>{{ arraySumOfDivided }}</p>
+
+            <p>
+              {{ sumOfDivided() }}
             </p>
           </div>
         </div>
@@ -303,6 +339,8 @@ export default {
       task11: false,
       task12: false,
       task13: false,
+      task14: false,
+      task15: false,
       wordSpin: '',
       wordDisemvowel: '',
       wordDuplicateCount: '',
@@ -321,9 +359,10 @@ export default {
       wordLongestConsec: '',
       arrayLongestConsec: ['it', 'wkppv', 'ixoyx', '3452', 'zzzzzzzzzzzz'],
       wordQueueTime: '',
-      arrayQueueTime: [
-        23, 15, 21, 27, 35, 14, 13
-      ],
+      wordZeros: '',
+      arrayQueueTime: [23, 15, 21, 27, 35, 14, 13],
+      wordSumOfDivided: '',
+      arraySumOfDivided: [4, 7, -21, 38, 29, 11, -49],
     }
   },
   methods: {
@@ -583,39 +622,80 @@ export default {
       }
 
       return arr[arr.length - 1]
-      // var time = 0
-      // var customersLine = []
-      // for (var j = 0; j < n && j < customers.length; j++) {
-      //   customersLine.push(customers[j])
-      // }
-      // if (n == 1) {
-      //   customers.forEach((item) => {
-      //     time += item
-      //   })
-      // } else if (n >= customers.length) {
-      //   customers.forEach((item) => {
-      //     if (item > time) {
-      //       time = item
-      //     }
-      //   })
-      // } else {
-      //   for (var i = n; i < customers.length; i++) {
-      //     customersLine.sort(function (a, b) {
-      //       return a - b
-      //     })
-      //     console.log(i, 'put', customersLine)
+    },
 
-      //     time = customers[i] + customersLine[0]
-      //     customersLine[0] = time
-      //     if (i === customers.length - 1) {
-      //       customersLine.sort(function (a, b) {
-      //         return a - b
-      //       })
-      //       time = customersLine[n - 1]
-      //     }
-      //   }
-      // }
-      // return time
+    // Task 14
+
+    // Write a program that will calculate the number of trailing zeros in a factorial of a given number.
+    // N! = 1 * 2 * 3 * ... * N
+    // Be careful 1000! has 2568 digits...
+
+    zeros(n) {
+      n = parseInt(n)
+      if (n < 0)
+        //Negative Number Edge Case
+        return 'Try number >= 0'
+
+      // Initialize result
+      let count = 0
+
+      // keep dividing n by powers of 5 and update count
+      while (n > 0) {
+        n = Math.floor(n / 5)
+        count += n
+      }
+      return count
+    },
+
+    // Task 15
+
+    // Given an array of positive or negative integers
+    // I= [i1,..,in]
+    // you have to produce a sorted array P of the form
+    // [ [p, sum of all ij of I for which p is a prime factor (p positive) of ij] ...]
+    // P will be sorted by increasing order of the prime numbers. The final result has to be given as a string in Java, C#, C, C++ and as an array of arrays in other languages.
+
+    sumOfDivided() {
+      var result = []
+      // we need to find biggest number in array becouse that is our biggest divider
+      var biggestNumber = Math.max.apply(null, this.arraySumOfDivided.map(Math.abs))
+
+      // we are making empty array which represents all numbers available from 0 to biggestNumber
+      // so we can mark numbers where we have found its prime numbers
+      var marked = Array(biggestNumber + 1)
+
+      // start looping from 2 becouse thats minimum posible prime number
+      // end looping at biggest number becouse thats maximum posible prime number
+      for (var i = 2; i <= biggestNumber; i++) {
+        // we are skiping this step only if our divider is appearing first time as prime number
+        // if divider appear as prime number at least once, we already marked all numbers where it can appear (line 733)
+        if(marked[i]) continue;
+
+        // sum of elements where prime number = i
+        var sumFactors = 0
+        // used to check if we increased sum 
+        // if true add element to array, if false skip
+        var primeExist = false
+
+        // looping through our array and checking if element is divisible
+        // if element is divisible we increase sum by its value, if not we skip
+        this.arraySumOfDivided.forEach((n) => {
+          if (n % i == 0) {
+            sumFactors += n
+            primeExist = true
+          }
+        })
+
+        if (primeExist) {
+          result.push([i, sumFactors])
+        }
+
+        // marking all numbers in our marked array which prime number is i
+        for (var j = 2 * i; j <= biggestNumber; j += i) {
+          marked[j] = true
+        }
+      }
+      return result
     },
   },
 }
