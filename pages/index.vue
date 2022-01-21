@@ -258,6 +258,28 @@
             </p>
           </div>
         </div>
+        <div class="card" :class="{ 'card-active': task13 }">
+          <h1 class="title">Task 13</h1>
+          <p class="description">
+            There is a queue for the self-checkout tills at the supermarket.
+            Your task is write a function to calculate the total time required
+            for all the customers to check out! Clarifications -> There is only
+            ONE queue serving many tills, and The order of the queue NEVER
+            changes, and The front person in the queue (i.e. the first element
+            in the array/list) proceeds to a till as soon as it becomes free.
+          </p>
+          <div class="card-flex card-flex__col">
+            <p>{{arrayQueueTime}}</p>
+            <input
+              v-model="wordQueueTime"
+              @focus="task13 = true"
+              @blur="task13 = false"
+            />
+            <p v-if="wordQueueTime">
+              {{ queueTime(wordQueueTime) }}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -280,6 +302,7 @@ export default {
       task10: false,
       task11: false,
       task12: false,
+      task13: false,
       wordSpin: '',
       wordDisemvowel: '',
       wordDuplicateCount: '',
@@ -297,6 +320,10 @@ export default {
       wordPersistance: '',
       wordLongestConsec: '',
       arrayLongestConsec: ['it', 'wkppv', 'ixoyx', '3452', 'zzzzzzzzzzzz'],
+      wordQueueTime: '',
+      arrayQueueTime: [
+        23, 15, 21, 27, 35, 14, 13
+      ],
     }
   },
   methods: {
@@ -533,6 +560,62 @@ export default {
         }
       }
       return result
+    },
+
+    // Task 13
+
+    // here is a queue for the self-checkout tills at the supermarket. Your task is write a function
+    // to calculate the total time required for all the customers to check out!
+    // Clarifications ->
+    // There is only ONE queue serving many tills, and
+    // The order of the queue NEVER changes, and
+    // The front person in the queue (i.e. the first element in the array/list) proceeds to a till as soon as it becomes free.
+
+    queueTime(n) {
+      n = parseInt(n)
+      let arr = []
+
+      for (let i = 0; i < n; i++) arr[i] = 0
+
+      for (let i = 0; i < this.arrayQueueTime.length; i++) {
+        arr[0] += this.arrayQueueTime[i]
+        arr.sort((a, b) => a - b)
+      }
+
+      return arr[arr.length - 1]
+      // var time = 0
+      // var customersLine = []
+      // for (var j = 0; j < n && j < customers.length; j++) {
+      //   customersLine.push(customers[j])
+      // }
+      // if (n == 1) {
+      //   customers.forEach((item) => {
+      //     time += item
+      //   })
+      // } else if (n >= customers.length) {
+      //   customers.forEach((item) => {
+      //     if (item > time) {
+      //       time = item
+      //     }
+      //   })
+      // } else {
+      //   for (var i = n; i < customers.length; i++) {
+      //     customersLine.sort(function (a, b) {
+      //       return a - b
+      //     })
+      //     console.log(i, 'put', customersLine)
+
+      //     time = customers[i] + customersLine[0]
+      //     customersLine[0] = time
+      //     if (i === customers.length - 1) {
+      //       customersLine.sort(function (a, b) {
+      //         return a - b
+      //       })
+      //       time = customersLine[n - 1]
+      //     }
+      //   }
+      // }
+      // return time
     },
   },
 }
