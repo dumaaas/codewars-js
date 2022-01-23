@@ -218,7 +218,7 @@ export default {
     padding: 24px;
     transition: ease-in 0.4s all;
     border: 1px solid transparent;
-    max-width: 100%;
+    width: 100%;
     .result {
       border: 1px solid #bb86fc;
       background: #373737;
