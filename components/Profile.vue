@@ -86,14 +86,14 @@ export default {
 
 <style lang="scss" scoped>
 .user {
-  margin: 0 auto;
-  max-width: 1000px;
   background: #1d1d1f;
   display: flex;
   gap: 33px;
   padding: 15px 15px 50px 15px;
   margin-bottom: 30px;
-
+  @media only screen and (max-width: 600px) {
+    padding: 24px;
+  }
   .card-header {
     padding-bottom: 0;
     padding-left: 0;
@@ -123,11 +123,12 @@ export default {
       }
 
       .name-card {
-        width: 33%;
+        width: 263px;
         background: #303133;
         padding: 5px 0;
         position: relative;
         z-index: 1;
+
         &:before {
           content: ' ';
           width: 0;
@@ -154,19 +155,22 @@ export default {
         }
 
         .name {
-            font-size: 22px;
-            line-height: 26px;
-            font-weight: 600;
+          font-size: 22px;
+          line-height: 26px;
+          font-weight: 600;
         }
       }
     }
     &__info {
       display: flex;
       width: 100%;
+      @media only screen and (max-width: 600px) {
+        flex-wrap: wrap;
+      }
       &--col {
         display: flex;
         flex-direction: column;
-        width: 33%;
+        width: 263px;
       }
       &--item {
         display: flex;
@@ -189,8 +193,10 @@ export default {
     height: 75px;
     img {
       max-width: 100%;
-          border-radius: 8px;
-
+      border-radius: 8px;
+    }
+    @media only screen and (max-width: 600px) {
+      display: none;
     }
   }
 }

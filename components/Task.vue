@@ -34,8 +34,13 @@
     <p class="description">
       {{ description }}
     </p>
-    <div class="card-flex" :class="{ 'card-flex__col': inputs > 1 }">
-      <div v-if="inputs === 1">
+    <div class="card-flex card-flex__col">
+      <div v-if="array.length" class="card-input__flex">
+        <label>Array:</label>
+        <p class="result">{{ array }}</p>
+      </div>
+      <div v-if="inputs === 1" class="card-input__flex">
+        <label>{{ inputLabel1 }}</label>
         <input
           v-model="input1"
           @focus="taskActive = true"
@@ -43,44 +48,71 @@
         />
       </div>
       <div v-if="inputs === 2" class="card-flex card-flex__col">
-        <input
-          v-model="input1"
-          @focus="taskActive = true"
-          @blur="taskActive = false"
-        />
-        <input
-          v-model="input2"
-          @focus="taskActive = true"
-          @blur="taskActive = false"
-        />
+        <div class="card-input__flex">
+          <label>{{ inputLabel1 }}</label>
+          <input
+            v-model="input1"
+            @focus="taskActive = true"
+            @blur="taskActive = false"
+          />
+        </div>
+        <div class="card-input__flex">
+          <label>{{ inputLabel2 }}</label>
+          <input
+            v-model="input2"
+            @focus="taskActive = true"
+            @blur="taskActive = false"
+          />
+        </div>
       </div>
       <div v-if="inputs === 3" class="card-flex card-flex__col">
-        <input
-          v-model="input1"
-          @focus="taskActive = true"
-          @blur="taskActive = false"
-        />
-        <input
-          v-model="input2"
-          @focus="taskActive = true"
-          @blur="taskActive = false"
-        />
-        <input
-          v-model="input3"
-          @focus="taskActive = true"
-          @blur="taskActive = false"
-        />
+        <div class="card-input__flex">
+          <label>{{ inputLabel1 }}</label>
+          <input
+            v-model="input1"
+            @focus="taskActive = true"
+            @blur="taskActive = false"
+          />
+        </div>
+        <div class="card-input__flex">
+          <label>{{ inputLabel2 }}</label>
+          <input
+            v-model="input2"
+            @focus="taskActive = true"
+            @blur="taskActive = false"
+          />
+        </div>
+        <div class="card-input__flex">
+          <label>{{ inputLabel3 }}</label>
+          <input
+            v-model="input3"
+            @focus="taskActive = true"
+            @blur="taskActive = false"
+          />
+        </div>
       </div>
-      <div v-if="inputs === 1">
-        <p v-if="input1">{{ callMethod(method, input1) }}</p>
+      <div v-if="inputs === 0" class="card-input__flex">
+        <label>Result:</label>
+        <p class="result">{{ callMethod(method) }}</p>
       </div>
-      <div v-if="inputs === 2" class="card-flex card-flex__col">
-        <p v-if="input1 && input2">{{ callMethod(method, input1, input2) }}</p>
+      <div v-if="inputs === 1" class="card-input__flex">
+        <label>Result:</label>
+        <p class="result" v-if="input1">{{ callMethod(method, input1) }}</p>
+        <p class="result" v-if="!input1"></p>
       </div>
-      <div v-if="inputs === 3" class="card-flex card-flex__col">
-        <p v-if="input1 && input2 && input3">
+      <div v-if="inputs === 2" class="card-input__flex">
+        <label>Result:</label>
+        <p class="result" v-if="input1 && input2">
+          {{ callMethod(method, input1, input2) }}
+        </p>
+        <p class="result" v-if="!input1 || !input2"></p>
+      </div>
+      <div v-if="inputs === 3" class="card-input__flex">
+        <label>Result:</label>
+        <p class="result" v-if="input1 && input2 && input3">
           {{ callMethod(method, input1, input2, input3) }}
         </p>
+        <p class="result" v-if="!input1 || !input2 || !input3"></p>
       </div>
     </div>
     <div class="card-footer">
@@ -110,6 +142,15 @@ export default {
     inputs: {
       type: [Number],
     },
+    inputLabel1: {
+      type: [String],
+    },
+    inputLabel2: {
+      type: [String],
+    },
+    inputLabel3: {
+      type: [String],
+    },
     array: {
       type: [Array],
     },
@@ -121,7 +162,6 @@ export default {
     },
   },
   async fetch() {
-    console.log(this.id)
     this.task = await fetch(
       `https://www.codewars.com/api/v1/code-challenges/${this.id}`
     ).then((res) => res.json())
@@ -134,12 +174,15 @@ export default {
   methods: {
     // Call methods
     callMethod(method, arg1, arg2, arg3) {
-      if (this.inputs.length === 2) {
+      if (this.inputs === 1) {
+        return this[method](arg1)
+      } else if (this.inputs === 2) {
+        console.log('????', this.inputs.length)
         return this[method](arg1, arg2)
-      } else if (this.inputs.length === 3) {
+      } else if (this.inputs === 3) {
         return this[method](arg1, arg2, arg3)
       }
-      return this[method](arg1)
+      return this[method]()
     },
 
     // Open link
@@ -297,7 +340,7 @@ export default {
 
     deleteNth(n) {
       let totals = {}
-      var arr = [...this.arrayDeleteNth]
+      var arr = [...this.array]
       return arr.filter((o) => (totals[o] = ++totals[o] || 0) < n)
     },
 
@@ -316,13 +359,17 @@ export default {
       var pow = p
       // counting sum of every digit of number on incrementing pows
       n.forEach((item) => {
-        sum = sum + Math.pow(item, pow)
+        console.log(item, 'pa', sum)
+        console.log('item =>', parseInt(item))
+        console.log('pow =>', pow)
+        sum = sum + Math.pow(parseInt(item), pow)
         pow++
       })
       n = n.join('')
       // if sum equal original number is equal is integer
       // we return that number
       // else return -1
+      console.log(sum, 'pa', n)
       return sum % n === 0 ? sum / n : -1
     },
 
@@ -363,17 +410,13 @@ export default {
     longestConsec(k) {
       k = parseInt(k)
 
-      if (
-        this.arrayLongestConsec.length === 0 ||
-        k > this.arrayLongestConsec.length ||
-        k <= 0
-      )
+      if (this.array.length === 0 || k > this.array.length || k <= 0)
         return 'Try another number.'
       var result = ''
-      for (let i = 0; i <= this.arrayLongestConsec.length - k; i++) {
+      for (let i = 0; i <= this.array.length - k; i++) {
         var str = ''
         for (let j = i; j < i + k; j++) {
-          str += this.arrayLongestConsec[j]
+          str += this.array[j]
         }
         if (result.length < str.length) {
           result = str
@@ -400,8 +443,8 @@ export default {
       // looping through array of customers
       // we are adding customers queue time to the till which have lowest queue time
       // we are sorting array, so we can add next customer queue time to the lowest till (first element of array)
-      for (let i = 0; i < this.arrayQueueTime.length; i++) {
-        arr[0] += this.arrayQueueTime[i]
+      for (let i = 0; i < this.array.length; i++) {
+        arr[0] += this.array[i]
         arr.sort((a, b) => a - b)
       }
 
@@ -443,10 +486,7 @@ export default {
     sumOfDivided() {
       var result = []
       // we need to find biggest number in array becouse that is our biggest divider
-      var biggestNumber = Math.max.apply(
-        null,
-        this.arraySumOfDivided.map(Math.abs)
-      )
+      var biggestNumber = Math.max.apply(null, this.array.map(Math.abs))
 
       // we are making empty array which represents all numbers available from 0 to biggestNumber
       // so we can mark numbers where we have found its prime numbers
@@ -467,7 +507,7 @@ export default {
 
         // looping through our array and checking if element is divisible
         // if element is divisible we increase sum by its value, if not we skip
-        this.arraySumOfDivided.forEach((n) => {
+        this.array.forEach((n) => {
           if (n % i == 0) {
             sumFactors += n
             primeExist = true
