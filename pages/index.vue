@@ -179,6 +179,21 @@ export default {
           description:
             'Given an array of positive or negative integers I= [i1,..,in] you have to produce a sorted array P of the form [ [p, sum of all ij of I for which p is a prime factor (p positive) of ij] ...] P will be sorted by increasing order of the prime numbers. The final result has to be given as a string in Java, C#, C, C++ and as an array of arrays in other languages.',
         },
+        {
+          id: '514a024011ea4fb54200004b',
+          inputs: 1,
+          inputLabel1: 'Enter domain:',
+          array: [],
+          method: 'domainName',
+          description: 'Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example: domainName("http://github.com/carbonfive/raygun") == "github"',
+        },
+        {
+          id: '539a0e4d85e3425cb0000a88',
+          inputs: 0,
+          array: [],
+          method: 'addChain',
+          description: `We want to create a function that will add numbers together when called in succession [add(1)(2); -> returns 3]. We also want to be able to continue to add numbers to our chain [add(1)(2)(3)(4)(5); // 15]. A single call should return the number passed in.`,
+        },
       ],
     }
   },

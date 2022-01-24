@@ -92,8 +92,18 @@
         </div>
       </div>
       <div v-if="inputs === 0" class="card-input__flex">
-        <label>Result:</label>
-        <p class="result">{{ callMethod(method) }}</p>
+        <div v-if="method === 'functionCalculating'">
+          <label>Result:</label>
+          <p class="result">{{ two(minus(seven())) }}</p>
+        </div>
+        <div v-if="method === 'addChain'">
+          <label>Result:</label>
+          <p class="result">{{ addChain(1)(2)(3)(4)(5) }}</p>
+        </div>
+        <div v-else>
+          <label>Result:</label>
+          <p class="result">{{ callMethod(method) }}</p>
+        </div>
       </div>
       <div v-if="inputs === 1" class="card-input__flex">
         <label>Result:</label>
@@ -524,6 +534,122 @@ export default {
         }
       }
       return result
+    },
+
+    // Task 16
+
+    // Write a function that when given a URL as a string, parses out just the domain name and returns it as a string.
+    // For example: domainName("http://github.com/carbonfive/raygun") == "github"
+
+    domainName(url) {
+      return url
+        .replace('http://', '')
+        .replace('https://', '')
+        .replace('www.', '')
+        .split('.')[0]
+    },
+
+    // Task 17
+    // This time we want to write calculations using functions and get the results.
+    // Let's have a look at some examples:
+    // seven(times(five())); -> must return 35
+    // four(plus(nine())); -> must return 13
+    // eight(minus(three())); -> must return 5
+    // six(dividedBy(two())); -> must return 3
+
+    // Explaination
+    // two(plus(three()))
+    // JavaScript is running from the inside 1st
+    // it will try to calculate three() =>
+    // next function plus will return function(a) => {a + 3}
+
+    zero(func) {
+      return func ? func(0) : 0
+    },
+
+    one(func) {
+      return func ? func(1) : 1
+    },
+
+    two(func) {
+      return func ? func(2) : 2
+    },
+
+    three(func) {
+      return func ? func(3) : 3
+    },
+
+    four(func) {
+      return func ? func(4) : 4
+    },
+
+    five(func) {
+      return func ? func(5) : 5
+    },
+
+    six(func) {
+      return func ? func(6) : 6
+    },
+
+    seven(func) {
+      return func ? func(7) : 7
+    },
+
+    eight(func) {
+      return func ? func(8) : 8
+    },
+
+    nine(func) {
+      return func ? func(9) : 9
+    },
+
+    plus(b) {
+      return function (a) {
+        return a + b
+      }
+    },
+
+    minus(b) {
+      return function (a) {
+        return a - b
+      }
+    },
+
+    times(b) {
+      return function (a) {
+        return a * b
+      }
+    },
+
+    dividedBy(b) {
+      return function (a) {
+        return a / b
+      }
+    },
+
+    // Task 18
+
+    // We want to create a function that will add numbers together when called in succession.
+    // add(1)(2) -> returns 3
+    // We also want to be able to continue to add numbers to our chain.
+    // add(1)(2)(3)(4)(5); // returns 15
+    // A single call should return the number passed in.
+    // add(1) -> returns 1
+
+    addChain(n) {
+      var currentSum = n
+
+      function f(b) {
+        currentSum += b
+        console.log(b, 'pa', f, 'i naravno suma', currentSum)
+        return f
+      }
+
+      f.toString = function () {
+        return currentSum
+      }
+
+      return f
     },
   },
 }
