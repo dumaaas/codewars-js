@@ -39,6 +39,14 @@
         <label>Array:</label>
         <p class="result">{{ array }}</p>
       </div>
+      <div class="card-input__flex" v-if="method === 'functionCalculating'">
+        <label>Input:</label>
+        <p class="result">two(minus(seven()))</p>
+      </div>
+      <div class="card-input__flex" v-else-if="method === 'addChain'">
+        <label>Input:</label>
+        <p class="result">addChain(1)(2)(3)(4)(5)</p>
+      </div>
       <div v-if="inputs === 1" class="card-input__flex">
         <label>{{ inputLabel1 }}</label>
         <input
@@ -92,11 +100,11 @@
         </div>
       </div>
       <div v-if="inputs === 0" class="card-input__flex">
-        <div v-if="method === 'functionCalculating'">
+        <div class="card-input__flex" v-if="method === 'functionCalculating'">
           <label>Result:</label>
           <p class="result">{{ two(minus(seven())) }}</p>
         </div>
-        <div v-if="method === 'addChain'">
+        <div class="card-input__flex" v-else-if="method === 'addChain'">
           <label>Result:</label>
           <p class="result">{{ addChain(1)(2)(3)(4)(5) }}</p>
         </div>
@@ -641,7 +649,6 @@ export default {
 
       function f(b) {
         currentSum += b
-        console.log(b, 'pa', f, 'i naravno suma', currentSum)
         return f
       }
 

@@ -185,7 +185,16 @@ export default {
           inputLabel1: 'Enter domain:',
           array: [],
           method: 'domainName',
-          description: 'Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example: domainName("http://github.com/carbonfive/raygun") == "github"',
+          description:
+            'Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example: domainName("http://github.com/carbonfive/raygun") == "github"',
+        },
+        {
+          id: '525f3eda17c7cd9f9e000b39',
+          inputs: 0,
+          array: [],
+          method: 'functionCalculating',
+          description:
+            'Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example: domainName("http://github.com/carbonfive/raygun") == "github"',
         },
         {
           id: '539a0e4d85e3425cb0000a88',
