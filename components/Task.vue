@@ -658,6 +658,85 @@ export default {
 
       return f
     },
+
+    // Task 19
+
+    // Consider a sequence u where u is defined as follows:
+    // The number u(0) = 1 is the first one in u.
+    // For each x in u, then y = 2 * x + 1 and z = 3 * x + 1 must be in u too.
+    // There are no other numbers in u.
+    // Ex: u = [1, 3, 4, 7, 9, 10, 13, 15, 19, 21, 22, 27, ...]
+    // 1 gives 3 and 4, then 3 gives 7 and 10, 4 gives 9 and 13, then 7 gives 15 and 22 and so on...
+
+    dblLinear(n) {
+      // The number u(0) = 1 is the first one in u.
+      // x & y = 0 so we can count nextX and nextY from the first element
+      // also we are saving index of elements that were not added yet to array
+      // when we add element, we increase x or y, so we can move on next element and count it nextX or nextY
+      let u = [1],
+        x = 0,
+        y = 0
+
+      // looping throug array from the start to the n
+      for (let i = 0; i < n; i++) {
+        // count nextX and nextY by given formula
+        let nextX = 2 * u[x] + 1,
+          nextY = 3 * u[y] + 1
+
+        // sorting elements so we can add smaller element first
+        // if nextX <= nextY, we add nextX to array and increase x index for 1
+        if (nextX <= nextY) {
+          u.push(nextX)
+          x++
+          // if nextX and nextY are same numbers, we just increase y index for 1
+          // becouse we already added that number in last step
+          if (nextX == nextY) y++
+        } else {
+          // if nextY > nextX, we add nextY to array and increase y index for 1
+          u.push(nextY)
+          y++
+        }
+      }
+
+      // return last element of array
+      return u[n]
+    },
+
+    // Task 20
+
+    // Sort "array" so that all elements with the value of zero are moved to the
+    // end of the array, while the other elements maintain order.
+    // [0, 1, 2, 0, 3] --> [1, 2, 3, 0, 0]
+    // Zero elements also maintain order in which they occurred.
+    // [0, "0", 1, 2, 3] --> [1, 2, 3, 0, "0"]
+    // Do not use any temporary arrays or objects. Additionally, you're not able
+    // to use any Array or Object prototype methods such as .shift(), .push(), etc
+    // the correctly sorted array should be returned.
+
+    removeZeros() {
+      // recursive helper function
+      const sendToBack = (i) => {
+        if (i === this.array.length - 1) return
+        else {
+          if (this.array[i + 1] === 0 || this.array[i + 1] === '0') return
+          else {
+            let temp = this.array[i]
+            this.array[i] = this.array[i + 1]
+            this.array[i + 1] = temp
+            return sendToBack(i + 1)
+          }
+        }
+      }
+      // loop through backwards, when you hit a zero call helper
+      let j = this.array.length - 1
+      while (j >= 0) {
+        if (this.array[j] == 0 && typeof this.array[j] !== 'boolean') {
+          sendToBack(j)
+        }
+        j--
+      }
+      return this.array
+    },
   },
 }
 </script>

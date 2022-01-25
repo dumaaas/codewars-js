@@ -203,6 +203,21 @@ export default {
           method: 'addChain',
           description: `We want to create a function that will add numbers together when called in succession [add(1)(2); -> returns 3]. We also want to be able to continue to add numbers to our chain [add(1)(2)(3)(4)(5); // 15]. A single call should return the number passed in.`,
         },
+        {
+          id: '5672682212c8ecf83e000050',
+          inputs: 1,
+          inputLabel1: 'Enter n:',
+          array: [],
+          method: 'dblLinear',
+          description: `Consider a sequence u where u is defined as follows: 1. The number u(0) = 1 is the first one in u. 2. For each x in u, then y = 2 * x + 1 and z = 3 * x + 1 must be in u too. 3. There are no other numbers in u. Ex: u = [1, 3, 4, 7, 9, 10, 13, 15, 19, 21, 22, 27, ...] -> 1 gives 3 and 4, then 3 gives 7 and 10, 4 gives 9 and 13, then 7 gives 15 and 22 and so on...`,
+        },
+        {
+          id: '52aae14aa7fd03d57400058f',
+          inputs: 0,
+          array: [13, 'What?', '0', 0, [1,2,3], null, {number: 0, string: 'number'}],
+          method: 'removeZeros',
+          description: `Write a function that takes an array of values and moves all elements that are zero to the end of the array, otherwise preserving the order of the array. The zero elements must also maintain the order in which they occurred. Zero elements are defined by either 0 or "0". Some tests may include elements that are not number literals. You are NOT allowed to use any temporary arrays or objects. You are also not allowed to use any Array.prototype or Object.prototype methods.`,
+        },
       ],
     }
   },
